@@ -21,6 +21,7 @@
     "encodable",
     "combinators",
     "κόσμε",
-    "pmarsceill"
+    "pmarsceill",
+    "struct"
   ]
 }

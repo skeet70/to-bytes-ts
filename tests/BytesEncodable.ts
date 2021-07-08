@@ -43,4 +43,21 @@ describe('BytesEncodable', () => {
 
     expect(_.byteMap(encoders)(testObj)).toStrictEqual(expectedResult)
   })
+
+  it('drops un-encoded fields', () => {
+    const testObj = {
+      greeting: 'Hello',
+      total: 2002123,
+    }
+
+    const encoders = {
+      total: _.encodeInteger,
+    }
+
+    const expectedResult = {
+      total: new Uint8Array([0, 0, 0, 0, 0, 30, 140, 203]),
+    }
+
+    expect(_.byteMap(encoders)(testObj)).toStrictEqual(expectedResult)
+  })
 })

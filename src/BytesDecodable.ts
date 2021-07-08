@@ -28,7 +28,7 @@ export interface BytesDecodable<A> {
  *
  *      * that the decoder field order is the same as the encoder field order,
  *      * that the field lengths are `255` or under,
- *      * that all indicies in the provided byte array are `!undefined`
+ *      * that all indices in the provided byte array are `!undefined`
  *
  * If any of the above assumptions are broken, the resulting behavior is undefined.
  *
