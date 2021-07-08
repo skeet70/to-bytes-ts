@@ -7,4 +7,3 @@ search_enabled: true
 aux_links:
   'Homepage':
     - 'http://'
-theme: jekyll-theme-minimal
