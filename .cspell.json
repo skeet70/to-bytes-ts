@@ -14,5 +14,13 @@
     "**/docs/examples/",
     "**/docs/modules/*.ts.md"
   ],
-  "words": []
+  "words": [
+    "bytemap",
+    "bytemaps",
+    "decodable",
+    "encodable",
+    "combinators",
+    "κόσμε",
+    "pmarsceill"
+  ]
 }
