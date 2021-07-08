@@ -26,19 +26,30 @@ export type ByteMap<A> = { readonly [K in keyof A]: Uint8Array }
 // combinators
 // -----------------------------------------------------------------------------
 /**
+ * WARNING: EXPERIMENTAL.
+ *
+ * If any property value is longer than 255 bytes, this will overflow and
+ * decoding will break.
+ *
+ * The current implementation uses a length marker byte before each property.
+ *
  * @since 1.0.0
  * @category Combinators
  */
-// this can only work if the sizes are constant... not sure how to make sure of that, or create a better way to do it
+// this can only work if the byte length of a sub element is less than 255...
+// definitely won't work recursively for a lot of literals.
+// could be a version that works of sizes are static and can be defined for the type?
+// not super useful though
 export const struct = <A>(
   encodes: { [K in keyof A]: BytesEncodable<A[K]> }
 ): BytesEncodable<{ readonly [K in keyof A]: A[K] }> => ({
   encode: (a) => {
-    // Object.fromEntries(Object.entries(a).map(([k,v]) => [k, encodes[k].encode(v)]))
     let result = new Uint8Array()
     for (const k in encodes) {
       if (Object.hasOwnProperty.call(encodes, k)) {
-        result = new Uint8Array([...result, ...encodes[k].encode(a[k])])
+        const encodedA = encodes[k].encode(a[k])
+        const elementLength = encodedA.length
+        result = new Uint8Array([...result, elementLength, ...encodedA])
       }
     }
     return result
@@ -60,7 +71,7 @@ export const encodeString: BytesEncodable<string> = {
 
 /**
  * Encodes an integer as a byte array. Safe for integers in the range of
- * -(2^53-1) to 2^53-1. Currently always a Uint8Array(8).
+ * `-(2^53-1)` to `2^53-1`. Currently always a `Uint8Array(8)`.
  *
  * @since 1.0.0
  * @category Instances

@@ -22,25 +22,40 @@ export interface BytesDecodable<A> {
 // combinators
 // -----------------------------------------------------------------------------
 /**
+ * WARNING: EXPERIMENTAL.
+ *
+ * The current implementation makes a lot of assumptions:
+ *
+ *      * that the decoder field order is the same as the encoder field order,
+ *      * that the field lengths are 255 or under,
+ *      * that all indicies in the provided byte array are non-null
+ *
+ * If any of the above assumptions are broken, the resulting behavior is undefined.
+ *
  * @since 1.0.0
  * @category Combinators
  */
 // this can only work if the type sizes are constant or known at decode time...
 // not sure how to make sure of that, or create a better way to do it
-// export const struct = <A>(
-//   decodes: { [K in keyof A]: BytesDecodable<A[K]> }
-// ): BytesDecodable<{ readonly [K in keyof A]: A[K] }> => ({
-//   decode: (a) => {
-//     // Object.fromEntries(Object.entries(a).map(([k,v]) => [k, decodes[k].decode(v)]))
-//     let result = new Uint8Array()
-//     for (const k in decodes) {
-//       if (Object.hasOwnProperty.call(decodes, k)) {
-//         result = new Uint8Array([...result, ...decodes[k].decode(a[k])])
-//       }
-//     }
-//     return result
-//   },
-// })
+export const struct = <A>(
+  decodes: { [K in keyof A]: BytesDecodable<A[K]> }
+): BytesDecodable<{ readonly [K in keyof A]: A[K] }> => ({
+  decode: (a: Uint8Array) => {
+    const result: Partial<{ readonly [K in keyof A]: A[K] }> = {}
+    // assumes same order of keys as encodes (which isn't always the case)
+    for (const k in decodes) {
+      if (Object.hasOwnProperty.call(decodes, k)) {
+        // TODO: make sure all the elements are defined
+        const propertyLength = a[0] || 0
+
+        result[k] = decodes[k].decode(a.subarray(1, propertyLength + 1))
+        a = a.slice(propertyLength + 1)
+      }
+    }
+    // now that we've iterated over all the keys, we can cast the result
+    return result as { readonly [K in keyof A]: A[K] }
+  },
+})
 
 // -----------------------------------------------------------------------------
 // instances
