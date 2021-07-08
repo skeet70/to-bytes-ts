@@ -35,7 +35,7 @@ Added in v1.0.0
 
 WARNING: EXPERIMENTAL.
 
-If any property value is longer than 255 bytes, this will overflow and
+If any property value is longer than `255` bytes, this will overflow and
 decoding will break.
 
 The current implementation uses a length marker byte before each property.
@@ -67,7 +67,7 @@ Added in v1.0.0
 
 ## encodeString
 
-Assumes utf-8 encoding.
+Assumes `utf-8` encoding.
 
 **Signature**
 
@@ -107,7 +107,7 @@ Added in v1.0.0
 
 ## byteMap
 
-Create a ByteMap of original key to byte encoded value from an object literal.
+Create a `ByteMap` of original key to byte encoded value from an object literal.
 
 **Signature**
 
