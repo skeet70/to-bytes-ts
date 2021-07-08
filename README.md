@@ -1,6 +1,6 @@
 # to-bytes-ts
 
-[![Test](http://github.com/skeet70/actions/workflows/build.yml/badge.svg)](http://github.com/skeet70/actions/workflows/build.yml)
+[![Test](https://github.com/skeet70/to-bytes-ts/actions/workflows/build.yml/badge.svg)](https://github.com/skeet70/to-bytes-ts/actions/workflows/build.yml)
 
 [API Docs](https://skeet70.github.io/to-bytes-ts/)
 
