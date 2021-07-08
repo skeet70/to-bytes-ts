@@ -33,6 +33,13 @@ Added in v1.0.0
 
 ## struct
 
+WARNING: EXPERIMENTAL.
+
+If any property value is longer than 255 bytes, this will overflow and
+decoding will break.
+
+The current implementation uses a length marker byte before each property.
+
 **Signature**
 
 ```ts
@@ -48,7 +55,7 @@ Added in v1.0.0
 ## encodeInteger
 
 Encodes an integer as a byte array. Safe for integers in the range of
--(2^53-1) to 2^53-1. Currently always a Uint8Array(8).
+`-(2^53-1)` to `2^53-1`. Currently always a `Uint8Array(8)`.
 
 **Signature**
 

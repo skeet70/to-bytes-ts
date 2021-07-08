@@ -15,6 +15,8 @@ Added in v1.0.0
 
 <h2 class="text-delta">Table of contents</h2>
 
+- [Combinators](#combinators)
+  - [struct](#struct)
 - [Instances](#instances)
   - [decodeInteger](#decodeinteger)
   - [decodeString](#decodestring)
@@ -24,6 +26,30 @@ Added in v1.0.0
   - [byteMap](#bytemap)
 
 ---
+
+# Combinators
+
+## struct
+
+WARNING: EXPERIMENTAL.
+
+The current implementation makes a lot of assumptions:
+
+     * that the decoder field order is the same as the encoder field order,
+     * that the field lengths are 255 or under,
+     * that all indicies in the provided byte array are non-null
+
+If any of the above assumptions are broken, the resulting behavior is undefined.
+
+**Signature**
+
+```ts
+export declare const struct: <A>(
+  decodes: { [K in keyof A]: BytesDecodable<A[K]> }
+) => BytesDecodable<{ readonly [K in keyof A]: A[K] }>
+```
+
+Added in v1.0.0
 
 # Instances
 
