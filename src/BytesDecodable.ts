@@ -65,7 +65,7 @@ export const decodeString: BytesDecodable<string> = {
 // TODO: look into using a range type of some sort here instead of number
 export const decodeInteger: BytesDecodable<number> = {
   decode: (a: Uint8Array) => {
-    if (a.length !== 8 || a[1]! > 31) {
+    if (a.length !== 8 || (a[1] && a[1] > 31)) {
       throw new RangeError(
         `${a} cannot be within safe Javascript Integer range.`
       )

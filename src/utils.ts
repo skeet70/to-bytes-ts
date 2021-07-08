@@ -3,8 +3,13 @@
  *
  * @since 1.0.0
  */
-export const encode = (array: Uint8Array): string =>
-  btoa(encodeURIComponent(String.fromCharCode.apply(null, array as any)))
+export const encode = (array: Uint8Array): string => {
+  let str = ''
+  array.forEach((byte) => {
+    str += String.fromCharCode(byte)
+  })
+  return btoa(encodeURIComponent(str))
+}
 
 /**
  * Base64 decode a string
