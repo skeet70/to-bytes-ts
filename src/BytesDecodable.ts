@@ -27,8 +27,8 @@ export interface BytesDecodable<A> {
  * The current implementation makes a lot of assumptions:
  *
  *      * that the decoder field order is the same as the encoder field order,
- *      * that the field lengths are 255 or under,
- *      * that all indicies in the provided byte array are non-null
+ *      * that the field lengths are `255` or under,
+ *      * that all indicies in the provided byte array are `!undefined`
  *
  * If any of the above assumptions are broken, the resulting behavior is undefined.
  *
@@ -72,7 +72,7 @@ export const decodeString: BytesDecodable<string> = {
 
 /**
  * Decodes a byte array into an integer. Safe for integers in the range of
- * -(2^53-1) to 2^53-1. Only length 8 Uint8Arrays are valid right now.
+ * `-(2^53-1)` to `2^53-1`. Only length 8 `Uint8Array`s are valid right now.
  *
  * @since 1.0.0
  * @category Instances
@@ -97,7 +97,7 @@ export const decodeInteger: BytesDecodable<number> = {
 // utils
 // -----------------------------------------------------------------------------
 /**
- * Create a ByteMap of original key to byte decoded value from an object literal.
+ * Create a `ByteMap` of original key to byte decoded value from an object literal.
  *
  * @since 1.0.0
  * @category Utils

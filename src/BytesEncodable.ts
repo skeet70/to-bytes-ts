@@ -28,7 +28,7 @@ export type ByteMap<A> = { readonly [K in keyof A]: Uint8Array }
 /**
  * WARNING: EXPERIMENTAL.
  *
- * If any property value is longer than 255 bytes, this will overflow and
+ * If any property value is longer than `255` bytes, this will overflow and
  * decoding will break.
  *
  * The current implementation uses a length marker byte before each property.
@@ -60,7 +60,7 @@ export const struct = <A>(
 // instances
 // -----------------------------------------------------------------------------
 /**
- * Assumes utf-8 encoding.
+ * Assumes `utf-8` encoding.
  *
  * @since 1.0.0
  * @category Instances
@@ -106,7 +106,7 @@ export const encodeInteger: BytesEncodable<number> = {
 // utils
 // -----------------------------------------------------------------------------
 /**
- * Create a ByteMap of original key to byte encoded value from an object literal.
+ * Create a `ByteMap` of original key to byte encoded value from an object literal.
  *
  * @since 1.0.0
  * @category Utils
